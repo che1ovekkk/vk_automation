@@ -84,5 +84,4 @@ def test_open_result():
     browser.execute_script("arguments[0].scrollIntoView();", apply_whole)
     apply_whole.screenshot('filled_apply.png')
 
-
-test_open_result()
+#TODO вынести определение и запуск браузера в отдельную функцию с параметром урла
