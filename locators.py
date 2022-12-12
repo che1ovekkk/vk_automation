@@ -1,6 +1,6 @@
 salary_field = '//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div[1]/form/div[6]/div/div[2]/div[1]/div[1]/fieldset/input'
 only_with_salary_field = '//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div[1]/form/div[6]/div/div[2]/div[2]/label/span'
-expirience_field = '//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div[1]/form/div[7]/div/div[2]/div[4]/label/span'
+experience_field = '//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div[1]/form/div[7]/div/div[2]/div[4]/label/span'
 type_field = '//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div[1]/form/div[8]/div/div[2]/div[1]/label/span'
 remote_work_field = '//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div[1]/form/div[9]/div/div[2]/div[4]/label/span'
 search_button_field = '//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div[1]/form/div[15]/div[2]/button'

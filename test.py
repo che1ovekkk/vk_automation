@@ -3,13 +3,20 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from locators import *
 from time import sleep
-
+from PIL import Image, ImageChops
 
 def open_browser(url):
     browser = webdriver.Chrome()
     browser.get(url=url)
     browser.implicitly_wait(3)
     return browser
+
+
+def get_diff(img1, img2):
+    image_1 = Image.open(img1).convert('RGB')
+    image_2 = Image.open(img2).convert('RGB')
+    diff = ImageChops.difference(image_1, image_2).getbbox()
+    return diff
 
 
 def test_main():
@@ -40,12 +47,12 @@ def test_filters():
     browser.execute_script("arguments[0].scrollIntoView();", only_with_salary)
     only_with_salary.click()
 
-    experience = browser.find_element(By.XPATH, expirience_field)
+    experience = browser.find_element(By.XPATH, experience_field)
     browser.execute_script("arguments[0].scrollIntoView();", experience)
     experience.click()
 
     type_of_work = browser.find_element(By.XPATH, type_field)
-    browser.execute_script("arguments[0].scrollIntoView();", type)
+    browser.execute_script("arguments[0].scrollIntoView();", type_of_work)
     type_of_work.click()
 
     remote_work = browser.find_element(By.XPATH, remote_work_field)
@@ -69,7 +76,7 @@ def test_open_result():
 
     browser.switch_to.window(browser.window_handles[1])
     browser.maximize_window()
-    browser.implicitly_wait(3)
+    sleep(3)
 
     apply_button = browser.find_element(By.XPATH, apply_button_field)
     apply_button.click()
@@ -84,3 +91,8 @@ def test_open_result():
     apply_whole = browser.find_element(By.XPATH, apply_whole_field)
     browser.execute_script("arguments[0].scrollIntoView();", apply_whole)
     apply_whole.screenshot('filled_apply.png')
+    diff = get_diff(img1='reference.png', img2='filled_apply.png')
+    assert diff is None, "Images doesn't match"
+
+
+#TODO - поставить allure и попробовать намутить аллюр-отчёт
