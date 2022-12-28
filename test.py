@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from locators import *
 from time import sleep
 from PIL import Image, ImageChops
+from path_to_images import *
 import allure
 
 
@@ -116,10 +117,8 @@ def test_open_result():
         apply_whole.screenshot('filled_apply.png')
     with allure.step('Сравниваем скриншот с эталоном'):
         diff = get_diff(img1='reference.png', img2='filled_apply.png')
-        allure.attach.file('C:\\Users\\che1o\\PycharmProjects\\vk_automation\\reference.png',
-                           attachment_type=allure.attachment_type.PNG)
-        allure.attach.file('C:\\Users\\che1o\\PycharmProjects\\vk_automation\\filled_apply.png',
-                           attachment_type=allure.attachment_type.PNG)
+        allure.attach.file(reference_image_path, attachment_type=allure.attachment_type.PNG)
+        allure.attach.file(test_image_path, attachment_type=allure.attachment_type.PNG)
     assert diff is None, "Images doesn't match"
 
 
