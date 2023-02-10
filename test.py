@@ -29,9 +29,11 @@ def test_main():
     browser = open_browser(url='https://samara.hh.ru')
     with allure.step('Ищем поле для ввода'):
         search_field = browser.find_element(By.NAME, 'text')
+
     with allure.step('Отправляем значение "Инженер по тестированию"'):
         search_field.send_keys('Инженер по тестированию')
     search_field.send_keys(Keys.RETURN)
+
     with allure.step('Проверяем значение в title'):
         assert 'Работа инженером по тестированию в Самаре' in browser.title
 
@@ -88,6 +90,7 @@ def test_filters():
             search_button.click()
             browser.implicitly_wait(3)
     total_vacancies = browser.find_element(By.TAG_NAME, 'h1').text
+
     with allure.step('Проверяем значение в title'):
         assert 'инженер по тестированию' in total_vacancies
 
@@ -102,23 +105,29 @@ def test_open_result():
         with allure.step('Нажимаем кнопку "Откликнуться"'):
             apply_button.click()
             sleep(3)
+
     with allure.step('Ищем поле для ввода e-mail'):
         apply_email = browser.find_element(By.NAME, 'login')
         with allure.step('Отправляем значение в поле e-mail'):
             apply_email.send_keys('balykov_ms@mail.ru')
+
     with allure.step('Кликаем мимо, чтобы пропал курсор в поле e-mail'):
         outside = browser.find_element(By.XPATH, outside_field)
         outside.click()
         sleep(1)
+
     with allure.step('Ищем весь блок отклика'):
         apply_whole = browser.find_element(By.XPATH, apply_whole_field)
         browser.execute_script("arguments[0].scrollIntoView();", apply_whole)
+
     with allure.step('Делаем скриншот для сравнения'):
         apply_whole.screenshot('filled_apply.png')
+
     with allure.step('Сравниваем скриншот с эталоном'):
         diff = get_diff(img1='reference.png', img2='filled_apply.png')
         allure.attach.file(reference_image_path, attachment_type=allure.attachment_type.PNG)
         allure.attach.file(test_image_path, attachment_type=allure.attachment_type.PNG)
+
     assert diff is None, "Images doesn't match"
 
 
